@@ -1,16 +1,10 @@
 .app {
   display: flex;
+  min-height: 100vh;
   flex-direction: column;
+  background-color: antiquewhite;
 
   &__content-container {
-    padding-bottom: 40px;
+    padding-bottom: calc(80px + 40px);
   }
-}
-
-:host {
-  background-color: antiquewhite;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
 }
