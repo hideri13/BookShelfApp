@@ -1,0 +1,40 @@
+.book-details {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 70%;
+  margin: auto;
+  align-content: center;
+
+  &__header {
+    font-family: bebas, sans-serif;
+    font-size: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+  }
+
+  &__body {
+    font-family: roboto-slab, sans-serif;
+    font-size: 24px;
+  }
+}
+
+.back-button {
+  font-family: bebas, sans-serif;
+  font-size: 20px;
+  width: 20%;
+
+  a, a:hover, a:visited, a:active {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  &:hover {
+    transform: scale(1.03);
+    transition: 0.3s all;
+    color: inherit;
+    text-decoration: none;
+  }
+}

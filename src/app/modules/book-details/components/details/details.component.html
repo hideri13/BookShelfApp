@@ -1,0 +1,19 @@
+<div class="book-details" *ngIf="detailedBook; else noDetails">
+  <div class="back-button">
+    <a [routerLink]="['..']">Back</a>
+  </div>
+  <div class="book-details__header">
+    <span>Title: {{ detailedBook.title }}</span>
+    <span>Author: {{ detailedBook.author }}</span>
+    <span>Genre: {{ detailedBook.genre }}</span>
+  </div>
+  <div class="book-details__body">
+    <span>Description:</span>
+    <div>{{ detailedBook.description }}</div>
+  </div>
+</div>
+
+
+<ng-template #noDetails>
+  <span>No details for this Book!</span>
+</ng-template>
