@@ -1,0 +1,21 @@
+.about-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin-bottom: 20px;
+  height: 20rem;
+
+  &__header {
+    font-family: roboto-slab, sans-serif;
+    font-size: 34px;
+    font-weight: bold;
+  }
+
+  &__text {
+    font-family: roboto-slab, sans-serif;
+    font-size: 30px;
+    font-weight: normal;
+  }
+}
