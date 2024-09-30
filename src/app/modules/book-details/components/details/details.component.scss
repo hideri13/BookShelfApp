@@ -1,16 +1,3 @@
-@mixin form-default-label {
-  font-family: bebas, sans-serif;
-  font-size: 24px;
-  color: black;
-}
-
-@mixin form-default-input {
-  font-family: roboto-slab, sans-serif;
-  font-size: 16px;
-  color: black;
-  background-color: white;
-}
-
 .book-details {
   display: flex;
   flex-direction: column;
@@ -32,50 +19,6 @@
     font-family: roboto-slab, sans-serif;
     font-size: 24px;
   }
-
-  &__form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-
-    ::ng-deep.gui-opacity-fade-in-field-skin {
-      background-color: white;
-    }
-
-    ::ng-deep.gui-input-label {
-      @include form-default-label;
-    }
-
-    ::ng-deep.gui-input-field-wrapper {
-      @include form-default-input;
-    }
-
-    ::ng-deep.gui-select__label {
-      @include form-default-label;
-    }
-
-    ::ng-deep.gui-select__input-wrapper {
-      @include form-default-input;
-    }
-
-    ::ng-deep.gui-picker__label {
-      @include form-default-label;
-    }
-
-    ::ng-deep.gui-picker__container {
-      @include form-default-input;
-    }
-
-    ::ng-deep.gui-textarea {
-      .label {
-        @include form-default-label;
-      }
-
-      .textarea {
-        @include form-default-input;
-      }
-    }
-  }
 }
 
 .back-button {
@@ -94,14 +37,4 @@
     color: inherit;
     text-decoration: none;
   }
-}
-
-.control-buttons {
-  display: flex;
-  flex-direction: row;
-  gap: 20px;
-}
-
-.details-form {
-  //font-family: bebas, sans-serif;
 }

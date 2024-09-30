@@ -1,33 +1,13 @@
-<ng-container *ngIf="books; else loadingData">
-  <gui-table class="book-list" content>
-    <tr class="book-list__header" head>
-      <th>Title</th>
-      <th>Author</th>
-      <th>Genre</th>
-      <th>Date</th>
-    </tr>
-    <ng-container *ngFor="let book of books" body>
-      <tr class="book-list__item" (click)="openBook(book.id)">
-        <td class="book-list__item__title">{{ book.title }}</td>
-        <td class="book-list__item__author">{{ book.author }}</td>
-        <td class="book-list__item__genre">{{ book.genre }}</td>
-        <td class="book-list__item__year">{{ book.date }}</td>
-      </tr>
-    </ng-container>
-  </gui-table>
-  <div class="paginator-wrapper">
-    <gui-paginator class="paginator"
-                   [length]="paginatorParams.totalLength"
-                   [pageSize]="paginatorParams.pageSize"
-                   [pageSizeOptions]="paginatorParams.pageSizeOptions"
-                   [pageIndex]="paginatorParams.pageIndex"
-                   [hidePageSize]="paginatorParams.hidePageSize"
-                   (page)="onPageChange($event)"
-    >
-    </gui-paginator>
-  </div>
-</ng-container>
+<table class="book-list">
+  <tr class="book-list__header">
+    <th>Title</th>
+    <th>Author</th>
+    <th>Genre</th>
+  </tr>
+  <tr class="book-list__item" *ngFor="let book of books" (click)="openBook(book.id)">
+    <td class="book-list__item__title">{{ book.title }}</td>
+    <td>{{ book.author }}</td>
+    <td>{{ book.genre }}</td>
+  </tr>
+</table>
 
-<ng-template #loadingData>
-  <span>{{ infoMsg }}</span>
-</ng-template>

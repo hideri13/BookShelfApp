@@ -1,11 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { BookSummary } from '../../data-interfaces/bookSummary';
+import { Book } from '../../data-interfaces/book';
+import { sampleBooksData } from '../../../../../shared/sample-sata/sample-books-data';
 import { ActivatedRoute, Router } from '@angular/router';
-import { PageEvent } from '@grotem-ui/grotem-ui-lib';
-import { PaginatorParams } from '../../data-interfaces/PaginatorParams';
-import { BookListInfoMsg, stockPaginatorOptions } from './list.constants';
-import { BookListNetworkService } from '../../services/book-list-network.service';
-import { BookPagedData } from '../../data-interfaces/network';
 
 @Component({
   selector: 'app-list',
@@ -13,54 +9,20 @@ import { BookPagedData } from '../../data-interfaces/network';
   styleUrls: ['./list.component.scss'],
 })
 export class ListComponent implements OnInit {
-  public books?: BookSummary[];
-  public paginatorParams!: PaginatorParams;
-  public infoMsg?: string;
+  public books?: Book[];
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private networkService: BookListNetworkService,
   ) {}
 
   public ngOnInit() {
-    this.initPaginator();
-    this.retrieveBooks();
+    // TEMP
+    this.books = this.retrieveBooks();
   }
 
-  private initPaginator(): void {
-    this.paginatorParams = {
-      pageIndex: stockPaginatorOptions.pageIndex,
-      pageSize: stockPaginatorOptions.pageSize,
-      pageSizeOptions: stockPaginatorOptions.pageSizeOptions,
-      totalLength: stockPaginatorOptions.totalLength,
-      hidePageSize: stockPaginatorOptions.hidePageSize,
-    };
-  }
-
-  private retrieveBooks(): void {
-    this.networkService
-      .getBooks(this.paginatorParams.pageIndex, this.paginatorParams.pageSize)
-      .subscribe((bookData: BookPagedData | Error) => {
-        this.infoMsg = BookListInfoMsg.loading;
-        if ('totalCount' in bookData && 'books' in bookData) {
-          this.paginatorParams.totalLength = bookData.totalCount;
-          this.books = bookData.books;
-        } else if ('error' in bookData) {
-          this.books = undefined;
-          this.paginatorParams.totalLength = 0;
-          this.infoMsg = BookListInfoMsg.error + ' Error: ' + bookData.error;
-        } else {
-          this.books = undefined;
-          this.infoMsg = BookListInfoMsg.error;
-        }
-      });
-  }
-
-  public onPageChange(pageEvent: PageEvent): void {
-    this.paginatorParams.pageIndex = pageEvent.pageIndex;
-    this.paginatorParams.pageSize = pageEvent.pageSize;
-    this.retrieveBooks();
+  private retrieveBooks() {
+    return sampleBooksData;
   }
 
   public openBook(id: number): void {
