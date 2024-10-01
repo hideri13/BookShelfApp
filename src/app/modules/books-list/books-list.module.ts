@@ -3,19 +3,10 @@ import { CommonModule } from '@angular/common';
 
 import { BooksListRoutingModule } from './books-list-routing.module';
 import { ListComponent } from './components/list/list.component';
-import { GuiPaginatorModule, GuiTableModule } from '@grotem-ui/grotem-ui-lib';
-import { BookListNetworkService } from './services/book-list-network.service';
-import { HttpClientModule } from '@angular/common/http';
+import { GuiTableModule } from '@grotem-ui/grotem-ui-lib';
 
 @NgModule({
   declarations: [ListComponent],
-  imports: [
-    CommonModule,
-    BooksListRoutingModule,
-    GuiTableModule,
-    GuiPaginatorModule,
-    HttpClientModule,
-  ],
-  providers: [BookListNetworkService],
+  imports: [CommonModule, BooksListRoutingModule, GuiTableModule],
 })
 export class BooksListModule {}

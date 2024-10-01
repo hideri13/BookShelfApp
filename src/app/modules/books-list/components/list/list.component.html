@@ -1,13 +1,15 @@
-<table class="book-list">
-  <tr class="book-list__header">
+<gui-table class="book-list">
+  <tr class="book-list__header" head>
     <th>Title</th>
     <th>Author</th>
     <th>Genre</th>
   </tr>
-  <tr class="book-list__item" *ngFor="let book of books" (click)="openBook(book.id)">
-    <td class="book-list__item__title">{{ book.title }}</td>
-    <td>{{ book.author }}</td>
-    <td>{{ book.genre }}</td>
-  </tr>
-</table>
+  <ng-container *ngFor="let book of books" body>
+    <tr class="book-list__item" (click)="openBook(book.id)">
+      <td class="book-list__item__title">{{ book.title }}</td>
+      <td>{{ book.author }}</td>
+      <td>{{ book.genre }}</td>
+    </tr>
+  </ng-container>
+</gui-table>
 
