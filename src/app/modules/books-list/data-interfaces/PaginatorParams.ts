@@ -3,5 +3,4 @@ export interface PaginatorParams {
   pageIndex: number;
   totalLength: number;
   pageSizeOptions: number[];
-  hidePageSize: boolean;
 }
