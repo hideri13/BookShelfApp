@@ -2,8 +2,15 @@ $background-color: #ede5c8;
 $highlight-color: #c6bca5;
 $width: 80%;
 
+:host {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .book-list {
-  margin: 0 auto;
+  //margin: 0 auto;
   padding-top: 20px;
   width: $width;
   border-radius: 0;
@@ -45,15 +52,30 @@ $width: 80%;
     font-size: 20px;
     font-weight: normal;
     min-height: 40px;
+
+    &__title {
+
+    }
+
+    &__author {
+      width: 25%;
+    }
+
+    &__genre {
+      width: 20%;
+    }
   }
 }
 
 .paginator-wrapper {
   display: flex;
   flex-direction: row;
+  justify-content: right;
   width: $width;
+  padding-top: 20px;
+  //margin: 0 auto;
 
   .paginator {
-
+    width: 30%;
   }
 }

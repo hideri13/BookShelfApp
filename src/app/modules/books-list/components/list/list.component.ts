@@ -40,8 +40,8 @@ export class ListComponent implements OnInit {
     let pageNumber = this.paginatorParams.pageIndex;
     let pageSize = this.paginatorParams.pageSize;
     let totalLength = sampleBooksData.length;
-    let start = (pageNumber - 1) * pageSize;
-    let end = start + pageSize - 1;
+    let start = pageNumber * pageSize;
+    let end = start + pageSize;
     return {
       totalLength: totalLength,
       data: sampleBooksData.slice(start, end),
@@ -64,8 +64,8 @@ export class ListComponent implements OnInit {
 }
 
 const stockPaginatorOptions = {
-  pageSize: 10,
-  pageIndex: 1,
+  pageSize: 9,
+  pageIndex: 0,
   pageSizeOptions: [10, 15, 20, 30, 50, 100, 200],
   totalLength: 0,
 };
