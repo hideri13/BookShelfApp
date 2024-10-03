@@ -64,6 +64,10 @@ $width: 80%;
     &__genre {
       width: 20%;
     }
+
+    &__year {
+      width: 10%;
+    }
   }
 }
 
@@ -73,7 +77,6 @@ $width: 80%;
   justify-content: right;
   width: $width;
   padding-top: 20px;
-  //margin: 0 auto;
 
   .paginator {
     ::ng-deep.gui-paginator__wrapper {
