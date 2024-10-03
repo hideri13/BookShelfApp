@@ -31,8 +31,7 @@
             ],
             "styles": [
               "src/styles.scss",
-              "./node_modules/@grotem-ui/grotem-ui-lib/assets/styles/styles.scss",
-              "./node_modules/ng-zorro-antd/ng-zorro-antd.less"
+              "./node_modules/@grotem-ui/grotem-ui-lib/assets/styles/styles.scss"
             ],
             "scripts": []
           },
