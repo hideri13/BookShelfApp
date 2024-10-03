@@ -76,6 +76,10 @@ $width: 80%;
   //margin: 0 auto;
 
   .paginator {
+    ::ng-deep.gui-paginator__wrapper {
+      gap: 10px;
+    }
+
     width: 30%;
   }
 }

@@ -4,6 +4,7 @@ import { sampleBooksData } from '../../../../../shared/sample-sata/sample-books-
 import { ActivatedRoute, Router } from '@angular/router';
 import { PageEvent } from '@grotem-ui/grotem-ui-lib';
 import { PaginatorParams } from '../../data-interfaces/PaginatorParams';
+import { stockPaginatorOptions } from './list.constants';
 
 @Component({
   selector: 'app-list',
@@ -32,6 +33,7 @@ export class ListComponent implements OnInit {
       pageSize: stockPaginatorOptions.pageSize,
       pageSizeOptions: stockPaginatorOptions.pageSizeOptions,
       totalLength: stockPaginatorOptions.totalLength,
+      hidePageSize: stockPaginatorOptions.hidePageSize,
     };
   }
 
@@ -62,10 +64,3 @@ export class ListComponent implements OnInit {
     this.router.navigate([`${id}`], { relativeTo: this.route });
   }
 }
-
-const stockPaginatorOptions = {
-  pageSize: 9,
-  pageIndex: 0,
-  pageSizeOptions: [10, 15, 20, 30, 50, 100, 200],
-  totalLength: 0,
-};
