@@ -3,12 +3,14 @@
     <th>Title</th>
     <th>Author</th>
     <th>Genre</th>
+    <th>Date</th>
   </tr>
   <ng-container *ngFor="let book of books" body>
     <tr class="book-list__item" (click)="openBook(book.id)">
       <td class="book-list__item__title">{{ book.title }}</td>
       <td class="book-list__item__author">{{ book.author }}</td>
       <td class="book-list__item__genre">{{ book.genre }}</td>
+      <td class="book-list__item__year">{{ book.date }}</td>
     </tr>
   </ng-container>
 </gui-table>

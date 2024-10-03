@@ -4,4 +4,5 @@ export interface BookDetailed {
   title: string;
   genre: string;
   description: string;
+  date: string;
 }

@@ -38,3 +38,13 @@
     text-decoration: none;
   }
 }
+
+.control-buttons {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.details-form {
+  //font-family: bebas, sans-serif;
+}

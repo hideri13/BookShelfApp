@@ -2,14 +2,38 @@
   <div class="back-button">
     <a [routerLink]="['..']">◀ Back</a>
   </div>
-  <div class="book-details__header">
-    <span>Title: {{ detailedBook.title }}</span>
-    <span>Author: {{ detailedBook.author }}</span>
-    <span>Genre: {{ detailedBook.genre }}</span>
-  </div>
-  <div class="book-details__body">
-    <span>Description:</span>
-    <div>{{ detailedBook.description }}</div>
+  <!--  <div class="book-details__header">-->
+  <!--    <span>Title: {{ detailedBook.title }}</span>-->
+  <!--    <span>Author: {{ detailedBook.author }}</span>-->
+  <!--    <span>Genre: {{ detailedBook.genre }}</span>-->
+  <!--  </div>-->
+  <!--  <div class="book-details__body">-->
+  <!--    <span>Description:</span>-->
+  <!--    <div>{{ detailedBook.description }}</div>-->
+  <!--  </div>-->
+  <gui-dynamic-form
+    class="details-form"
+    [dynamicForm]="detailsForm"
+    (formCreated)="formCreated()"
+  >
+  </gui-dynamic-form>
+  <div class="control-buttons">
+    <button
+      gui-button
+      class="control-buttons__save"
+      [buttonType]='buttonSaveType'
+      (click)="onSave()"
+    >
+      Save
+    </button>
+    <button
+      gui-button
+      class="control-buttons__delete"
+      [buttonType]="buttonDeleteType"
+      (click)="onDelete()"
+    >
+      Delete
+    </button>
   </div>
 </div>
 

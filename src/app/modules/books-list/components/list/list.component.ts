@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Book } from '../../data-interfaces/book';
+import { BookSummary } from '../../data-interfaces/bookSummary';
 import { sampleBooksData } from '../../../../../shared/sample-sata/sample-books-data';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PageEvent } from '@grotem-ui/grotem-ui-lib';
@@ -12,7 +12,7 @@ import { stockPaginatorOptions } from './list.constants';
   styleUrls: ['./list.component.scss'],
 })
 export class ListComponent implements OnInit {
-  public books?: Book[];
+  public books?: BookSummary[];
   public paginatorParams!: PaginatorParams;
 
   constructor(
