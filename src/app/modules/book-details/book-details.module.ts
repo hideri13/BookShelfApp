@@ -7,9 +7,12 @@ import {
   ButtonModule,
   DialogModule,
   DynamicFormModule,
+  InputModule,
+  SelectModule,
 } from '@grotem-ui/grotem-ui-lib';
 import { DetailsDialogComponent } from './components/dialog/details-dialog.component';
 import { DialogDataService } from './services/dialog-data.service';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [DetailsComponent, DetailsDialogComponent],
@@ -19,6 +22,9 @@ import { DialogDataService } from './services/dialog-data.service';
     DynamicFormModule,
     ButtonModule,
     DialogModule,
+    ReactiveFormsModule,
+    InputModule,
+    SelectModule,
   ],
   providers: [
     DialogDataService,
