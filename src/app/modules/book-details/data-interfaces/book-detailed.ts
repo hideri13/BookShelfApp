@@ -3,6 +3,6 @@ export interface BookDetailed {
   author: string;
   title: string;
   genre: string;
-  description: string;
   date: string;
+  description: string;
 }

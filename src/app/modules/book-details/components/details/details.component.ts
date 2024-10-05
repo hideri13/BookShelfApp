@@ -4,21 +4,17 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { sampleBooksData } from '../../../../../shared/sample-sata/sample-books-data';
 import {
   ButtonType,
-  DatePickerDynamicFormControl,
   DialogOverlayRef,
   DialogService,
-  DynamicForm,
   IGuiDialogOptions,
-  InputDynamicFormControl,
-  SelectDynamicFormControl,
-  TextareaDynamicFormControl,
 } from '@grotem-ui/grotem-ui-lib';
-import { Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DialogDataService } from '../../services/dialog-data.service';
 import { DetailsDialogType } from './details.model';
-import { DialogTextConstants } from './details.constants';
+import { DetailsConstants, DialogTextConstants } from './details.constants';
 import { DetailsDialogComponent } from '../dialog/details-dialog.component';
 import { take } from 'rxjs';
+import { BookDetailsForm } from '../../data-interfaces/book-details-form';
 
 @Component({
   selector: 'app-details',
@@ -27,10 +23,10 @@ import { take } from 'rxjs';
 })
 export class DetailsComponent implements OnInit {
   public detailedBook?: BookDetailed;
-  public detailsForm!: DynamicForm;
+  public detailsForm!: FormGroup<BookDetailsForm>;
   public readonly buttonSaveType!: ButtonType;
   public readonly buttonDeleteType!: ButtonType;
-
+  protected readonly detailsStrings: any;
   private dialogRef!: DialogOverlayRef<DetailsDialogComponent, boolean>;
 
   constructor(
@@ -41,6 +37,7 @@ export class DetailsComponent implements OnInit {
   ) {
     this.buttonSaveType = 'primary';
     this.buttonDeleteType = 'danger';
+    this.detailsStrings = DetailsConstants;
   }
 
   public ngOnInit() {
@@ -91,62 +88,41 @@ export class DetailsComponent implements OnInit {
   }
 
   private initForm(): void {
-    this.detailsForm = new DynamicForm('detailsForm', [
-      new InputDynamicFormControl({
-        key: 'title',
-        label: 'Title',
-        placeholder: 'title',
+    this.detailsForm = new FormGroup<BookDetailsForm>({
+      title: new FormControl('', {
+        nonNullable: true,
         validators: [Validators.required],
       }),
-      new InputDynamicFormControl({
-        key: 'author',
-        label: 'Author',
-        placeholder: 'author',
+      author: new FormControl<string>('', {
+        nonNullable: true,
         validators: [Validators.required],
       }),
-      new SelectDynamicFormControl({
-        key: 'genre',
-        label: 'Genre',
-        placeholder: 'Pick genre',
-        selectOptions: [
-          { value: 'detective', label: 'detective' },
-          { value: 'thriller', label: 'thriller' },
-          { value: 'romance', label: 'romance' },
-          { value: 'fantasy', label: 'fantasy' },
-        ],
-        validators: [Validators.required],
-      }),
-      new DatePickerDynamicFormControl({
-        key: 'year',
-        label: 'Pick year',
-        validators: [Validators.required],
-      }),
-      new TextareaDynamicFormControl({
-        key: 'description',
-        label: 'Description',
-        placeholder: 'Description',
-      }),
-    ]);
+      genre: new FormControl<string>('', { nonNullable: true }),
+      date: new FormControl<string>('', { nonNullable: true }),
+      description: new FormControl<string>('', { nonNullable: true }),
+    });
   }
 
   private applyInititalDataToForm(): void {
-    this.detailsForm?.controls[0].setValue(this.detailedBook?.title);
-    this.detailsForm?.controls[1].setValue(this.detailedBook?.author);
-    this.detailsForm?.controls[2].setValue(this.detailedBook?.genre);
-    this.detailsForm?.controls[3].setValue(this.detailedBook?.date);
-    this.detailsForm?.controls[4].setValue(this.detailedBook?.description);
+    // TODO: Handle async
+    this.detailsForm?.controls.title.setValue(this.detailedBook!.title);
+    this.detailsForm?.controls.author.setValue(this.detailedBook!.author);
+    this.detailsForm?.controls.genre.setValue(this.detailedBook!.genre);
+    this.detailsForm?.controls.date.setValue(this.detailedBook!.date);
+    this.detailsForm?.controls.description.setValue(
+      this.detailedBook!.description,
+    );
   }
 
   private applyFormsToData() {
-    this.detailedBook!.title = this.detailsForm?.controls[0].formControl!.value;
-    this.detailedBook!.author =
-      this.detailsForm?.controls[1].formControl!.value;
-    this.detailedBook!.genre = this.detailsForm?.controls[2].formControl!.value;
+    this.detailedBook!.title = this.detailsForm?.controls.title.value;
+    this.detailedBook!.author = this.detailsForm?.controls.author.value;
+    this.detailedBook!.genre = this.detailsForm?.controls.genre.value;
     this.detailedBook!.date = this.getDate(
-      this.detailsForm?.controls[3].formControl!.value,
+      this.detailsForm?.controls.date.value,
     );
     this.detailedBook!.description =
-      this.detailsForm?.controls[4].formControl!.value;
+      this.detailsForm?.controls.description.value;
   }
 
   private getDate(str: string): string {
@@ -201,8 +177,13 @@ export class DetailsComponent implements OnInit {
 
     this.dialogRef = this.dialogService.open(dialogOptions);
     this.dialogRef.afterClosed$.subscribe((closingResult: boolean) => {
-      console.log(closingResult);
-      console.log('button pressed');
+      if (closingResult) {
+        if (type === DetailsDialogType.save) {
+          this.save();
+        } else {
+          this.delete();
+        }
+      }
     });
   }
 

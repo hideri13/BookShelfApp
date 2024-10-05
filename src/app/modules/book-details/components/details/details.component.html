@@ -11,12 +11,23 @@
   <!--    <span>Description:</span>-->
   <!--    <div>{{ detailedBook.description }}</div>-->
   <!--  </div>-->
-  <gui-dynamic-form
-    class="details-form"
-    [dynamicForm]="detailsForm"
-    (formCreated)="formCreated()"
-  >
-  </gui-dynamic-form>
+  <form class="book-details__forms" [formGroup]="detailsForm">
+    <gui-input class="book-details__forms__title"
+               [label]="detailsStrings.title"
+               [placeholder]="detailsStrings.title"
+               type="text"
+               formControlName="title"
+    ></gui-input>
+    <gui-input class="book-details__forms__author"
+               [label]="detailsStrings.author"
+               [placeholder]="detailsStrings.author"
+               type="text"
+               formControlName="author"
+    ></gui-input>
+    <gui-select>
+      <!--      TODO: CONTINUE WITH GUI SELECT AND ETC-->
+    </gui-select>
+  </form>
   <div class="control-buttons">
     <button
       gui-button
