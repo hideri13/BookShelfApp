@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DialogOverlayRef, DialogService } from '@grotem-ui/grotem-ui-lib';
 import { DialogDataService } from '../../services/dialog-data.service';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-dialog',
@@ -17,19 +18,22 @@ export class DetailsDialogComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.dataService.getData().subscribe((data) => {
-      this.content = data;
-    });
+    this.dataService
+      .getData()
+      .pipe(take(1))
+      .subscribe((data) => {
+        this.content = data;
+      });
   }
 
   public confirm(): void {
-    this.dialogRef.close('Saved');
+    this.dialogRef.close(true);
   }
 
   /**
    * Обработчик кнопки Закрыть
    */
   public close(): void {
-    this.dialogRef.close('Closed without saving');
+    this.dialogRef.close(false);
   }
 }

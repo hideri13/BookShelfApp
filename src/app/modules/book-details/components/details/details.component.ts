@@ -5,7 +5,10 @@ import { sampleBooksData } from '../../../../../shared/sample-sata/sample-books-
 import {
   ButtonType,
   DatePickerDynamicFormControl,
+  DialogOverlayRef,
+  DialogService,
   DynamicForm,
+  IGuiDialogOptions,
   InputDynamicFormControl,
   SelectDynamicFormControl,
   TextareaDynamicFormControl,
@@ -14,6 +17,8 @@ import { Validators } from '@angular/forms';
 import { DialogDataService } from '../../services/dialog-data.service';
 import { DetailsDialogType } from './details.model';
 import { DialogTextConstants } from './details.constants';
+import { DetailsDialogComponent } from '../dialog/details-dialog.component';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-details',
@@ -26,12 +31,12 @@ export class DetailsComponent implements OnInit {
   public readonly buttonSaveType!: ButtonType;
   public readonly buttonDeleteType!: ButtonType;
 
-  //private dialogRef: DialogOverlayRef<DetailsDialogComponent, string>;
+  private dialogRef!: DialogOverlayRef<DetailsDialogComponent, boolean>;
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    //private readonly dialogService: DialogService,
+    private readonly dialogService: DialogService,
     private dataService: DialogDataService,
   ) {
     this.buttonSaveType = 'primary';
@@ -40,9 +45,49 @@ export class DetailsComponent implements OnInit {
 
   public ngOnInit() {
     this.initForm();
-    this.route.params.subscribe((params: Params): void => {
-      this.detailedBook = this.retrieveBook(params['id']);
-    });
+    this.route.params
+      .pipe(
+        // tap(
+        //   ((id: string, c: Console): object => ({
+        //     subscribe: (): void =>
+        //       c.log(
+        //         `%c> ${id} subscribe`,
+        //         'background-color:lime;color:black;padding:3px;',
+        //       ),
+        //     next: (v: unknown): void =>
+        //       c.log(
+        //         `%c> ${id} next`,
+        //         'background-color:aqua;color:black;padding:3px;',
+        //         v,
+        //       ),
+        //     error: (e: unknown): void =>
+        //       c.log(
+        //         `%c> ${id} error`,
+        //         'background-color:red;color:black;padding:3px;',
+        //         e,
+        //       ),
+        //     complete: (): void =>
+        //       c.log(
+        //         `%c> ${id} complete`,
+        //         'background-color:aqua;color:black;padding:3px;',
+        //       ),
+        //     unsubscribe: (): void =>
+        //       c.log(
+        //         `%c> ${id} unsubscribe`,
+        //         'background-color:magenta;color:black;padding:3px;',
+        //       ),
+        //     finalize: (): void =>
+        //       c.log(
+        //         `%c> ${id} finalize`,
+        //         'background-color:salmon;color:black;padding:3px;',
+        //       ),
+        //   }))('1', window.console),
+        // ),
+        take(1),
+      )
+      .subscribe((params: Params): void => {
+        this.detailedBook = this.retrieveBook(params['id']);
+      });
   }
 
   private initForm(): void {
@@ -123,13 +168,11 @@ export class DetailsComponent implements OnInit {
   }
 
   public onSave() {
-    this.save();
-    //this.openDialog(DetailsDialogType.save);
+    this.openDialog(DetailsDialogType.save);
   }
 
   public onDelete() {
-    this.delete();
-    //this.openDialog(DetailsDialogType.delete);
+    this.openDialog(DetailsDialogType.delete);
   }
 
   private save() {
@@ -143,12 +186,12 @@ export class DetailsComponent implements OnInit {
   }
 
   private openDialog(type: DetailsDialogType): void {
-    // const dialogOptions: IGuiDialogOptions<DetailsDialogComponent> = {
-    //   title: 'My dialog',
-    //   contentComponent: DetailsDialogComponent,
-    //   width: '37.5rem',
-    //   type: 'confirm',
-    // };
+    const dialogOptions: IGuiDialogOptions<DetailsDialogComponent> = {
+      title: 'My dialog',
+      contentComponent: DetailsDialogComponent,
+      width: '37.5rem',
+      type: 'confirm',
+    };
 
     this.dataService.setData(
       type === DetailsDialogType.save
@@ -156,11 +199,11 @@ export class DetailsComponent implements OnInit {
         : DialogTextConstants.delete,
     );
 
-    //this.dialogRef = this.dialogService.open(dialogOptions);
-
-    // this.dialogRef.afterClosed$.subscribe((closingResult: string) => {
-    //   console.log(closingResult);
-    // });
+    this.dialogRef = this.dialogService.open(dialogOptions);
+    this.dialogRef.afterClosed$.subscribe((closingResult: boolean) => {
+      console.log(closingResult);
+      console.log('button pressed');
+    });
   }
 
   public formCreated() {
