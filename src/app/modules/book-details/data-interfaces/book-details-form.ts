@@ -4,6 +4,6 @@ export interface BookDetailsForm {
   author: FormControl<string>;
   title: FormControl<string>;
   genre: FormControl<string>;
-  date: FormControl<string>;
+  date: FormControl<Date>;
   description: FormControl<string>;
 }
