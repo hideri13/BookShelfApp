@@ -7,11 +7,16 @@ import {
   DialogOverlayRef,
   DialogService,
   IGuiDialogOptions,
+  SelectEnumType,
 } from '@grotem-ui/grotem-ui-lib';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DialogDataService } from '../../services/dialog-data.service';
 import { DetailsDialogType } from './details.model';
-import { DetailsConstants, DialogTextConstants } from './details.constants';
+import {
+  DetailsConstants,
+  DialogTextConstants,
+  GenreConstants,
+} from './details.constants';
 import { DetailsDialogComponent } from '../dialog/details-dialog.component';
 import { take } from 'rxjs';
 import { BookDetailsForm } from '../../data-interfaces/book-details-form';
@@ -42,54 +47,15 @@ export class DetailsComponent implements OnInit {
 
   public ngOnInit() {
     this.initForm();
-    this.route.params
-      .pipe(
-        // tap(
-        //   ((id: string, c: Console): object => ({
-        //     subscribe: (): void =>
-        //       c.log(
-        //         `%c> ${id} subscribe`,
-        //         'background-color:lime;color:black;padding:3px;',
-        //       ),
-        //     next: (v: unknown): void =>
-        //       c.log(
-        //         `%c> ${id} next`,
-        //         'background-color:aqua;color:black;padding:3px;',
-        //         v,
-        //       ),
-        //     error: (e: unknown): void =>
-        //       c.log(
-        //         `%c> ${id} error`,
-        //         'background-color:red;color:black;padding:3px;',
-        //         e,
-        //       ),
-        //     complete: (): void =>
-        //       c.log(
-        //         `%c> ${id} complete`,
-        //         'background-color:aqua;color:black;padding:3px;',
-        //       ),
-        //     unsubscribe: (): void =>
-        //       c.log(
-        //         `%c> ${id} unsubscribe`,
-        //         'background-color:magenta;color:black;padding:3px;',
-        //       ),
-        //     finalize: (): void =>
-        //       c.log(
-        //         `%c> ${id} finalize`,
-        //         'background-color:salmon;color:black;padding:3px;',
-        //       ),
-        //   }))('1', window.console),
-        // ),
-        take(1),
-      )
-      .subscribe((params: Params): void => {
-        this.detailedBook = this.retrieveBook(params['id']);
-      });
+    this.route.params.pipe(take(1)).subscribe((params: Params): void => {
+      this.detailedBook = this.retrieveBook(params['id']);
+      this.applyInititalDataToForm();
+    });
   }
 
   private initForm(): void {
     this.detailsForm = new FormGroup<BookDetailsForm>({
-      title: new FormControl('', {
+      title: new FormControl<string>('', {
         nonNullable: true,
         validators: [Validators.required],
       }),
@@ -98,7 +64,7 @@ export class DetailsComponent implements OnInit {
         validators: [Validators.required],
       }),
       genre: new FormControl<string>('', { nonNullable: true }),
-      date: new FormControl<string>('', { nonNullable: true }),
+      date: new FormControl<Date>(new Date(), { nonNullable: true }),
       description: new FormControl<string>('', { nonNullable: true }),
     });
   }
@@ -108,7 +74,7 @@ export class DetailsComponent implements OnInit {
     this.detailsForm?.controls.title.setValue(this.detailedBook!.title);
     this.detailsForm?.controls.author.setValue(this.detailedBook!.author);
     this.detailsForm?.controls.genre.setValue(this.detailedBook!.genre);
-    this.detailsForm?.controls.date.setValue(this.detailedBook!.date);
+    this.detailsForm?.controls.date.setValue(new Date(this.detailedBook!.date));
     this.detailsForm?.controls.description.setValue(
       this.detailedBook!.description,
     );
@@ -125,8 +91,7 @@ export class DetailsComponent implements OnInit {
       this.detailsForm?.controls.description.value;
   }
 
-  private getDate(str: string): string {
-    let date: Date = new Date(str);
+  private getDate(date: Date): string {
     let mo: number = date.getMonth() + 1;
     let day: number = date.getDate();
     return `${date.getFullYear()}-${mo < 10 ? '0' + `${mo}` : `${mo}`}-${
@@ -159,6 +124,7 @@ export class DetailsComponent implements OnInit {
   private delete() {
     sampleBooksData.splice(this.detailedBook!.id, 1);
     this.router.navigate(['..']);
+    // BUG with array ids, no need to fix bc of future network implementation
   }
 
   private openDialog(type: DetailsDialogType): void {
@@ -187,11 +153,12 @@ export class DetailsComponent implements OnInit {
     });
   }
 
-  public formCreated() {
-    this.applyInititalDataToForm();
-  }
-
   private retrieveBook(id: number): BookDetailed {
+    // TODO: network
     return sampleBooksData[id];
   }
+
+  protected readonly SelectEnumType = SelectEnumType;
+  protected readonly GenreConstants = GenreConstants;
+  protected readonly DetailsConstants = DetailsConstants;
 }
