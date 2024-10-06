@@ -124,7 +124,7 @@ export class DetailsComponent implements OnInit {
 
   private openDialog(type: DetailsDialogType): void {
     const dialogOptions: IGuiDialogOptions<DetailsDialogComponent> = {
-      title: 'My dialog',
+      title: 'Confirm',
       contentComponent: DetailsDialogComponent,
       width: '37.5rem',
       type: 'confirm',
