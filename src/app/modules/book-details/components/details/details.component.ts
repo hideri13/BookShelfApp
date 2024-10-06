@@ -3,7 +3,6 @@ import { BookDetailed } from '../../data-interfaces/book-detailed';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { sampleBooksData } from '../../../../../shared/sample-sata/sample-books-data';
 import {
-  ButtonType,
   DialogOverlayRef,
   DialogService,
   IGuiDialogOptions,
@@ -13,6 +12,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DialogDataService } from '../../services/dialog-data.service';
 import { DetailsDialogType } from './details.model';
 import {
+  ButtonTypeConstants,
   DetailsConstants,
   DialogTextConstants,
   GenreConstants,
@@ -29,8 +29,6 @@ import { BookDetailsForm } from '../../data-interfaces/book-details-form';
 export class DetailsComponent implements OnInit {
   public detailedBook?: BookDetailed;
   public detailsForm!: FormGroup<BookDetailsForm>;
-  public readonly buttonSaveType!: ButtonType;
-  public readonly buttonDeleteType!: ButtonType;
   protected readonly detailsStrings: any;
   private dialogRef!: DialogOverlayRef<DetailsDialogComponent, boolean>;
 
@@ -40,8 +38,6 @@ export class DetailsComponent implements OnInit {
     private readonly dialogService: DialogService,
     private dataService: DialogDataService,
   ) {
-    this.buttonSaveType = 'primary';
-    this.buttonDeleteType = 'danger';
     this.detailsStrings = DetailsConstants;
   }
 
@@ -158,6 +154,6 @@ export class DetailsComponent implements OnInit {
   }
 
   protected readonly SelectEnumType = SelectEnumType;
+  protected readonly ButtonTypeConstants = ButtonTypeConstants;
   protected readonly GenreConstants = GenreConstants;
-  protected readonly DetailsConstants = DetailsConstants;
 }

@@ -55,7 +55,7 @@
       <button
         gui-button
         class="control-buttons__save"
-        [buttonType]='buttonSaveType'
+        [buttonType]="ButtonTypeConstants['save']"
         (click)="onSave()"
       >
         Save
@@ -63,7 +63,7 @@
       <button
         gui-button
         class="control-buttons__delete"
-        [buttonType]="buttonDeleteType"
+        [buttonType]="ButtonTypeConstants['delete']"
         (click)="onDelete()"
       >
         Delete
