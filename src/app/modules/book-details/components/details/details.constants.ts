@@ -7,6 +7,8 @@ export const DetailsConstants = {
   title: 'Title',
   author: 'Author',
   genre: 'Genre',
-  Date: 'Date',
+  date: 'Date',
   description: 'Description',
 };
+
+export const GenreConstants = ['romance', 'fantasy', 'thriller', 'detective'];
