@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BookDetailed } from '../../data-interfaces/book-detailed';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { sampleBooksData } from '../../../../../shared/sample-sata/sample-books-data';
 import {
   DialogOverlayRef,
   DialogService,
@@ -12,6 +11,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DialogDataService } from '../../services/dialog-data.service';
 import { DetailsDialogType } from './details.model';
 import {
+  BookDetailedInfoMsg,
   ButtonTypeConstants,
   DetailsConstants,
   DialogTextConstants,
@@ -20,6 +20,7 @@ import {
 import { DetailsDialogComponent } from '../dialog/details-dialog.component';
 import { take } from 'rxjs';
 import { BookDetailsForm } from '../../data-interfaces/book-details-form';
+import { BookDetailsNetworkService } from '../../services/book-details-network.service';
 
 @Component({
   selector: 'app-details',
@@ -31,21 +32,40 @@ export class DetailsComponent implements OnInit {
   public detailsForm!: FormGroup<BookDetailsForm>;
   protected readonly detailsStrings: any;
   private dialogRef!: DialogOverlayRef<DetailsDialogComponent, boolean>;
+  public infoMsg?: string;
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private readonly dialogService: DialogService,
     private dataService: DialogDataService,
+    private networkService: BookDetailsNetworkService,
   ) {
     this.detailsStrings = DetailsConstants;
   }
 
   public ngOnInit() {
     this.initForm();
+    this.getBook();
+  }
+
+  private retrieveBook(id: string) {
+    this.networkService.getBookById(id).subscribe((bookData) => {
+      this.infoMsg = BookDetailedInfoMsg.loading;
+      if ('title' in bookData && 'author' in bookData) {
+        this.detailedBook = bookData;
+        this.applyInitialDataToForm();
+      } else if ('error' in bookData) {
+        this.infoMsg = BookDetailedInfoMsg.error + ' Error: ' + bookData.error;
+      } else {
+        this.infoMsg = BookDetailedInfoMsg.error;
+      }
+    });
+  }
+
+  private getBook() {
     this.route.params.pipe(take(1)).subscribe((params: Params): void => {
-      this.detailedBook = this.retrieveBook(params['id']);
-      this.applyInititalDataToForm();
+      this.retrieveBook(params['id']);
     });
   }
 
@@ -65,7 +85,7 @@ export class DetailsComponent implements OnInit {
     });
   }
 
-  private applyInititalDataToForm(): void {
+  private applyInitialDataToForm(): void {
     this.detailsForm?.controls.title.setValue(this.detailedBook!.title);
     this.detailsForm?.controls.author.setValue(this.detailedBook!.author);
     this.detailsForm?.controls.genre.setValue(this.detailedBook!.genre);
@@ -94,15 +114,6 @@ export class DetailsComponent implements OnInit {
     }`;
   }
 
-  private postData(): void {
-    sampleBooksData[this.detailedBook!.id].title = this.detailedBook!.title;
-    sampleBooksData[this.detailedBook!.id].author = this.detailedBook!.author;
-    sampleBooksData[this.detailedBook!.id].genre = this.detailedBook!.genre;
-    sampleBooksData[this.detailedBook!.id].date = this.detailedBook!.date;
-    sampleBooksData[this.detailedBook!.id].description =
-      this.detailedBook!.description;
-  }
-
   public onSave() {
     this.openDialog(DetailsDialogType.save);
   }
@@ -113,13 +124,33 @@ export class DetailsComponent implements OnInit {
 
   private save() {
     this.applyFormsToData();
-    this.postData();
+    this.networkService
+      .postUpdateBook(this.detailedBook!.id, this.detailedBook!)
+      .subscribe((res) => {
+        // TODO: Make popup or smth
+        if ('msg' in res) {
+          console.log(res.msg);
+        } else if ('error' in res) {
+          console.log(res.error);
+        } else {
+          console.log('Network error!');
+        }
+      });
   }
 
   private delete() {
-    sampleBooksData.splice(this.detailedBook!.id, 1);
-    this.router.navigate(['..']);
-    // BUG with array ids, no need to fix bc of future network implementation
+    this.networkService
+      .postDeleteBook(this.detailedBook!.id)
+      .subscribe((res) => {
+        if ('msg' in res) {
+          console.log(res.msg);
+          this.router.navigate(['..']);
+        } else if ('error' in res) {
+          console.log(res.error);
+        } else {
+          console.log('Network error!');
+        }
+      });
   }
 
   private openDialog(type: DetailsDialogType): void {
@@ -146,11 +177,6 @@ export class DetailsComponent implements OnInit {
         }
       }
     });
-  }
-
-  private retrieveBook(id: number): BookDetailed {
-    // TODO: network
-    return sampleBooksData[id];
   }
 
   protected readonly SelectEnumType = SelectEnumType;
