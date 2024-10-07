@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { BookSummary } from '../../data-interfaces/bookSummary';
-import { sampleBooksData } from '../../../../../shared/sample-sata/sample-books-data';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PageEvent } from '@grotem-ui/grotem-ui-lib';
 import { PaginatorParams } from '../../data-interfaces/PaginatorParams';
 import { stockPaginatorOptions } from './list.constants';
+import { BookListNetworkService } from '../../services/book-list-network.service';
+import { BookPagedData } from '../../data-interfaces/network';
 
 @Component({
   selector: 'app-list',
@@ -18,13 +19,12 @@ export class ListComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
+    private networkService: BookListNetworkService,
   ) {}
 
   public ngOnInit() {
     this.initPaginator();
-    let requestData = this.retrieveBooks();
-    this.paginatorParams.totalLength = requestData.totalLength;
-    this.books = requestData.data;
+    this.retrieveBooks();
   }
 
   private initPaginator(): void {
@@ -37,27 +37,19 @@ export class ListComponent implements OnInit {
     };
   }
 
-  private retrieveBooks() {
-    //Server job emulation
-    let pageNumber = this.paginatorParams.pageIndex;
-    let pageSize = this.paginatorParams.pageSize;
-    let totalLength = sampleBooksData.length;
-    let start = pageNumber * pageSize;
-    let end = start + pageSize;
-    return {
-      totalLength: totalLength,
-      data: sampleBooksData.slice(start, end),
-    };
+  private retrieveBooks(): void {
+    this.networkService
+      .getBooks(this.paginatorParams.pageIndex, this.paginatorParams.pageSize)
+      .subscribe((bookData: BookPagedData) => {
+        this.paginatorParams.totalLength = bookData.totalCount;
+        this.books = bookData.books;
+      });
   }
 
   public onPageChange(pageEvent: PageEvent): void {
     this.paginatorParams.pageIndex = pageEvent.pageIndex;
     this.paginatorParams.pageSize = pageEvent.pageSize;
-    this.paginatorParams.totalLength = pageEvent.length;
-    //pageEvent.previousPageIndex
-    let tmp = this.retrieveBooks();
-    this.paginatorParams.totalLength = tmp.totalLength;
-    this.books = tmp.data;
+    this.retrieveBooks();
   }
 
   public openBook(id: number): void {
