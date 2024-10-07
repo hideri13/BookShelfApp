@@ -56,8 +56,10 @@ export class DetailsComponent implements OnInit {
         this.detailedBook = bookData;
         this.applyInitialDataToForm();
       } else if ('error' in bookData) {
+        this.detailedBook = undefined;
         this.infoMsg = BookDetailedInfoMsg.error + ' Error: ' + bookData.error;
       } else {
+        this.detailedBook = undefined;
         this.infoMsg = BookDetailedInfoMsg.error;
       }
     });
@@ -142,6 +144,7 @@ export class DetailsComponent implements OnInit {
     this.networkService
       .postDeleteBook(this.detailedBook!.id)
       .subscribe((res) => {
+        // TODO: Make popup or smth
         if ('msg' in res) {
           console.log(res.msg);
           this.router.navigate(['..']);
