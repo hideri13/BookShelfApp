@@ -3,7 +3,7 @@ import { BookSummary } from '../../data-interfaces/bookSummary';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PageEvent } from '@grotem-ui/grotem-ui-lib';
 import { PaginatorParams } from '../../data-interfaces/PaginatorParams';
-import { stockPaginatorOptions } from './list.constants';
+import { BookListInfoMsg, stockPaginatorOptions } from './list.constants';
 import { BookListNetworkService } from '../../services/book-list-network.service';
 import { BookPagedData } from '../../data-interfaces/network';
 
@@ -15,6 +15,7 @@ import { BookPagedData } from '../../data-interfaces/network';
 export class ListComponent implements OnInit {
   public books?: BookSummary[];
   public paginatorParams!: PaginatorParams;
+  public infoMsg?: string;
 
   constructor(
     private router: Router,
@@ -40,9 +41,19 @@ export class ListComponent implements OnInit {
   private retrieveBooks(): void {
     this.networkService
       .getBooks(this.paginatorParams.pageIndex, this.paginatorParams.pageSize)
-      .subscribe((bookData: BookPagedData) => {
-        this.paginatorParams.totalLength = bookData.totalCount;
-        this.books = bookData.books;
+      .subscribe((bookData: BookPagedData | Error) => {
+        this.infoMsg = BookListInfoMsg.loading;
+        if ('totalCount' in bookData && 'books' in bookData) {
+          this.paginatorParams.totalLength = bookData.totalCount;
+          this.books = bookData.books;
+        } else if ('error' in bookData) {
+          this.books = undefined;
+          this.paginatorParams.totalLength = 0;
+          this.infoMsg = BookListInfoMsg.error + ' Error: ' + bookData.error;
+        } else {
+          this.books = undefined;
+          this.infoMsg = BookListInfoMsg.error;
+        }
       });
   }
 

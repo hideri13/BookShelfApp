@@ -5,3 +5,8 @@ export const stockPaginatorOptions = {
   totalLength: 0,
   hidePageSize: false,
 };
+
+export const BookListInfoMsg = {
+  loading: 'Loading books!',
+  error: 'Error occurred while fetching books. Please refresh the page.',
+};
