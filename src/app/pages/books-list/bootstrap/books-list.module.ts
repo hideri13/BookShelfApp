@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { BooksListRoutingModule } from './books-list-routing.module';
 import { ListComponent } from '../ui/list/list.component';
 import { GuiPaginatorModule, GuiTableModule } from '@grotem-ui/grotem-ui-lib';
-import { BookListRepository } from '../data/book-list-repository.service';
+import { BookListRepository } from '../data';
 import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({

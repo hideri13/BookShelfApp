@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { BookSummary } from '../../data-interfaces/bookSummary';
+import { BookSummary } from '../../domain/book-summary';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PageEvent } from '@grotem-ui/grotem-ui-lib';
-import { PaginatorParams } from '../../data-interfaces/PaginatorParams';
+import { PaginatorParams } from '../../domain/paginator-params';
 import { BookListInfoMsg, stockPaginatorOptions } from './list.constants';
-import { BookListRepository } from '../../data/book-list-repository.service';
-import { BookPagedData } from '../../data-interfaces/network';
+import { BookListRepository } from '../../data';
+import { BookPagedData } from '../../domain/book-paged-data';
 
 @Component({
   selector: 'app-list',
@@ -67,3 +67,5 @@ export class ListComponent implements OnInit {
     this.router.navigate([`${id}`], { relativeTo: this.route });
   }
 }
+
+//TODO: Patch for Facade

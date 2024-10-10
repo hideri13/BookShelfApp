@@ -6,8 +6,10 @@ import {
   Store,
 } from '@grotem/grotem.box.angular.store';
 import * as actions from './actions';
-import { Subject } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 import { BookListRepository } from '../data/book-list.repository';
+import { BookPaged } from '../domain';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable()
 @Store({
@@ -32,5 +34,21 @@ export class BookListFacade implements OnDestroy {
 
   public resetState(): void {
     this.store.resetStore();
+  }
+
+  public loadBooksList(page: number, size: number): void {
+    this.store.dispatch(new actions.LoadBookList());
+
+    this.bookListRepository
+      .getBooks(page, size)
+      .pipe(takeUntil(this._destroy$))
+      .subscribe({
+        next: (data: BookPaged): void => {
+          this.store.dispatch(new actions.LoadBookListSuccess(data));
+        },
+        error: (error: HttpErrorResponse): void => {
+          this.store.dispatch(new actions.LoadBookListFailure(error));
+        },
+      });
   }
 }
