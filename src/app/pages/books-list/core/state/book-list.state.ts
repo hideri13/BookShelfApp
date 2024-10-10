@@ -3,14 +3,14 @@ import {
   IBaseDictionaryState,
   IState,
 } from '@grotem/grotem.box.angular.store';
-import { BookSummary } from '../../data-interfaces/bookSummary';
+import { BookPaged } from '../../domain';
 
 export class BookListState implements IState<BookListState> {
   public readonly actionType: string | undefined;
   public readonly payload: Partial<BookListState> | undefined;
 
-  public readonly bookListState: IBaseDictionaryState<BookSummary[]> =
-    new BaseDictionaryState({ value: new Array<BookSummary>() });
+  public readonly bookListState: IBaseDictionaryState<BookPaged> =
+    new BaseDictionaryState({ value: new BookPaged() }); //TODO: FIX
 
   constructor(
     state?: Partial<BookListState>,
