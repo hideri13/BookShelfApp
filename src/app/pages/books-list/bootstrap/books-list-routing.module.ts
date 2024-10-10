@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ListComponent } from './components/list/list.component';
+import { ListComponent } from '../ui/list/list.component';
 
 const routes: Routes = [
   {
@@ -10,7 +10,7 @@ const routes: Routes = [
   {
     path: ':id',
     loadChildren: () =>
-      import('../book-details/book-details.module').then(
+      import('../../book-details/book-details.module').then(
         (m) => m.BookDetailsModule,
       ),
   },

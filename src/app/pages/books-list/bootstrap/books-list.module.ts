@@ -2,9 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { BooksListRoutingModule } from './books-list-routing.module';
-import { ListComponent } from './components/list/list.component';
+import { ListComponent } from '../ui/list/list.component';
 import { GuiPaginatorModule, GuiTableModule } from '@grotem-ui/grotem-ui-lib';
-import { BookListNetworkService } from './services/book-list-network.service';
+import { BookListRepository } from '../data/book-list-repository.service';
 import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
@@ -16,6 +16,6 @@ import { HttpClientModule } from '@angular/common/http';
     GuiPaginatorModule,
     HttpClientModule,
   ],
-  providers: [BookListNetworkService],
+  providers: [BookListRepository],
 })
 export class BooksListModule {}
