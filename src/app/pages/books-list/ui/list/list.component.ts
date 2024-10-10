@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { PageEvent } from '@grotem-ui/grotem-ui-lib';
 import { PaginatorParams } from '../../data-interfaces/PaginatorParams';
 import { BookListInfoMsg, stockPaginatorOptions } from './list.constants';
-import { BookListNetworkService } from '../../services/book-list-network.service';
+import { BookListRepository } from '../../data/book-list-repository.service';
 import { BookPagedData } from '../../data-interfaces/network';
 
 @Component({
@@ -20,7 +20,7 @@ export class ListComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private networkService: BookListNetworkService,
+    private networkService: BookListRepository,
   ) {}
 
   public ngOnInit() {

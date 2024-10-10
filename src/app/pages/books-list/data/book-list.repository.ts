@@ -5,7 +5,7 @@ import { BookPagedData } from '../data-interfaces/network';
 import { BookApi } from '../../../../shared/global-env/book-api';
 
 @Injectable()
-export class BookListNetworkService {
+export class BookListRepository {
   constructor(private httpClient: HttpClient) {}
 
   public getBooks(

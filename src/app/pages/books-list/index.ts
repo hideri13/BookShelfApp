@@ -1,0 +1,1 @@
+export { BooksListModule } from './bootstrap';
