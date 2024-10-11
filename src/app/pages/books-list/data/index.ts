@@ -1,1 +1,1 @@
-export { BookListRepository } from './book-list-repository.service';
+export { BookListRepository } from './book-list.repository';

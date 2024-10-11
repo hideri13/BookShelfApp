@@ -6,6 +6,7 @@ import { ListComponent } from '../ui/list/list.component';
 import { GuiPaginatorModule, GuiTableModule } from '@grotem-ui/grotem-ui-lib';
 import { BookListRepository } from '../data';
 import { HttpClientModule } from '@angular/common/http';
+import { BookListFacade } from '../core';
 
 @NgModule({
   declarations: [ListComponent],
@@ -16,6 +17,6 @@ import { HttpClientModule } from '@angular/common/http';
     GuiPaginatorModule,
     HttpClientModule,
   ],
-  providers: [BookListRepository],
+  providers: [BookListRepository, BookListFacade],
 })
 export class BooksListModule {}
