@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { BookPagedData } from '../domain/book-paged-data';
+import { BookPagedData } from '../core/domain/book-paged-data';
 import { BookApi } from '../../../../shared/global-env/book-api';
 
 @Injectable()

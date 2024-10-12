@@ -1,10 +1,11 @@
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import { BookSummary, PaginatorParams } from '../../domain';
+import { BookSummary, PaginatorParams } from '../../core/domain';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PageEvent } from '@grotem-ui/grotem-ui-lib';
 import { stockPaginatorOptions } from './list.constants';
@@ -21,7 +22,7 @@ import { Subject, takeUntil } from 'rxjs';
   selector: 'app-list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
-  changeDetection: ChangeDetectionStrategy.Default,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ListComponent implements OnInit, OnDestroy {
   private _destroy$ = new Subject<void>();
@@ -34,14 +35,15 @@ export class ListComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     private readonly facade: BookListFacade,
+    private readonly changeDectectionRef: ChangeDetectorRef,
   ) {}
 
   public ngOnInit() {
     this.initPaginator();
-    this.subscribeToBooksListDeprecated();
-    // this.subscribeToBooksListLoad();
-    // this.subscribeToBooksListSuccess();
-    // this.subscribeToBooksListFailure();
+    //this.subscribeToBooksListLoad(); // Disabled for beautifying
+    this.subscribeToBooksListSuccess();
+    this.subscribeToBooksListFailure();
+    this.loadBooks();
   }
 
   public ngOnDestroy() {
@@ -59,16 +61,7 @@ export class ListComponent implements OnInit, OnDestroy {
     };
   }
 
-  private subscribeToBooksListDeprecated(): void {
-    this.facade.state$
-      .pipe(takeUntil(this._destroy$))
-      .subscribe((state: BookListState): void => {
-        this.books = state.bookListState.value.books;
-        this.paginatorParams.totalLength = state.bookListState.value.totalCount;
-      });
-  }
-
-  //TODO: Fix infinite loop
+  // Causes stutter
   private subscribeToBooksListLoad(): void {
     this.facade.state$
       .byActions([LoadBookList])
@@ -76,6 +69,7 @@ export class ListComponent implements OnInit, OnDestroy {
       .subscribe((): void => {
         this.books = undefined;
         this.infoMsg = 'Loading';
+        this.changeDectectionRef.detectChanges();
       });
   }
 
@@ -86,6 +80,7 @@ export class ListComponent implements OnInit, OnDestroy {
       .subscribe((state: BookListState): void => {
         this.books = state.bookListState.value.books;
         this.paginatorParams.totalLength = state.bookListState.value.totalCount;
+        this.changeDectectionRef.detectChanges();
       });
   }
 
@@ -97,12 +92,22 @@ export class ListComponent implements OnInit, OnDestroy {
         this.books = undefined;
         this.paginatorParams.totalLength = 0;
         this.infoMsg = `Load Error`;
+        this.changeDectectionRef.detectChanges();
       });
   }
 
   public onPageChange(pageEvent: PageEvent): void {
-    this.paginatorParams.pageIndex = pageEvent.pageIndex;
-    this.paginatorParams.pageSize = pageEvent.pageSize;
+    if (
+      this.paginatorParams.pageIndex !== pageEvent.pageIndex ||
+      this.paginatorParams.pageSize !== pageEvent.pageSize
+    ) {
+      this.paginatorParams.pageIndex = pageEvent.pageIndex;
+      this.paginatorParams.pageSize = pageEvent.pageSize;
+      this.loadBooks();
+    }
+  }
+
+  private loadBooks(): void {
     this.facade.loadBooksList(
       this.paginatorParams.pageIndex,
       this.paginatorParams.pageSize,
