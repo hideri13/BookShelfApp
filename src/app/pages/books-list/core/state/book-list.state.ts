@@ -3,7 +3,7 @@ import {
   IBaseDictionaryState,
   IState,
 } from '@grotem/grotem.box.angular.store';
-import { BookPaged } from '../../domain';
+import { BookPaged } from '../domain';
 
 export class BookListState implements IState<BookListState> {
   public readonly actionType: string | undefined;

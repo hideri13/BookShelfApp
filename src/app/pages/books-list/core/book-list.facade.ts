@@ -8,7 +8,7 @@ import {
 import * as actions from './actions';
 import { Subject, takeUntil } from 'rxjs';
 import { BookListRepository } from '../data';
-import { BookPagedData } from '../domain';
+import { BookPagedData } from './domain';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable()

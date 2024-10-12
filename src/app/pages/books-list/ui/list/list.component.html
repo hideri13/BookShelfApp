@@ -15,19 +15,18 @@
       </tr>
     </ng-container>
   </gui-table>
-  <div class="paginator-wrapper">
-    <gui-paginator class="paginator"
-                   [length]="paginatorParams.totalLength"
-                   [pageSize]="paginatorParams.pageSize"
-                   [pageSizeOptions]="paginatorParams.pageSizeOptions"
-                   [pageIndex]="paginatorParams.pageIndex"
-                   [hidePageSize]="paginatorParams.hidePageSize"
-                   (page)="onPageChange($event)"
-    >
-    </gui-paginator>
-  </div>
 </ng-container>
-
+<div class="paginator-wrapper">
+  <gui-paginator class="paginator"
+                 [length]="paginatorParams.totalLength"
+                 [pageSize]="paginatorParams.pageSize"
+                 [pageSizeOptions]="paginatorParams.pageSizeOptions"
+                 [pageIndex]="paginatorParams.pageIndex"
+                 [hidePageSize]="paginatorParams.hidePageSize"
+                 (page)="onPageChange($event)"
+  >
+  </gui-paginator>
+</div>
 <ng-template #loadingData>
   <span>{{ infoMsg }}</span>
 </ng-template>

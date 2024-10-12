@@ -4,7 +4,7 @@ import {
   IAction,
 } from '@grotem/grotem.box.angular.store';
 import { BookListState } from '../../state';
-import { BookPagedData } from '../../../domain';
+import { BookPagedData } from '../../domain';
 
 @Action('Load Book List Success')
 export class LoadBookListSuccess implements IAction<BookListState> {
