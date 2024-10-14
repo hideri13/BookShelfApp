@@ -10,7 +10,7 @@ export class BookListState implements IState<BookListState> {
   public readonly payload: Partial<BookListState> | undefined;
 
   public readonly bookListState: IBaseDictionaryState<BookPaged> =
-    new BaseDictionaryState({ value: new BookPaged() }); //TODO: FIX
+    new BaseDictionaryState({ value: new BookPaged() });
 
   constructor(
     state?: Partial<BookListState>,
