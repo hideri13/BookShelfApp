@@ -1,6 +1,6 @@
 import { FormControl } from '@angular/forms';
 
-export interface BookDetailsForm {
+export interface DetailsFormInterface {
   author: FormControl<string>;
   title: FormControl<string>;
   genre: FormControl<string>;

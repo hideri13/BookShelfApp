@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DialogOverlayRef, DialogService } from '@grotem-ui/grotem-ui-lib';
-import { DialogDataService } from '../../services/dialog-data.service';
+import { DialogDataService } from '../../core/dialog-data.service';
 import { take } from 'rxjs';
 
 @Component({

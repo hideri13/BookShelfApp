@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { BookDetailed } from '../../data-interfaces/book-detailed';
+import { BookDetailedData } from '../../core/domain/book-detailed';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import {
   DialogOverlayRef,
@@ -8,7 +8,7 @@ import {
   SelectEnumType,
 } from '@grotem-ui/grotem-ui-lib';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { DialogDataService } from '../../services/dialog-data.service';
+import { DialogDataService } from '../../core/dialog-data.service';
 import { DetailsDialogType } from './details.model';
 import {
   BookDetailedInfoMsg,
@@ -19,17 +19,18 @@ import {
 } from './details.constants';
 import { DetailsDialogComponent } from '../dialog/details-dialog.component';
 import { take } from 'rxjs';
-import { BookDetailsForm } from '../../data-interfaces/book-details-form';
-import { BookDetailsNetworkService } from '../../services/book-details-network.service';
+import { DetailsFormInterface } from './details.form.interface';
+import { BookDetailsRepository } from '../../data/book-details.repository';
 
+//TODO: Refactor with facade
 @Component({
   selector: 'app-details',
   templateUrl: './details.component.html',
   styleUrls: ['./details.component.scss'],
 })
 export class DetailsComponent implements OnInit {
-  public detailedBook?: BookDetailed;
-  public detailsForm!: FormGroup<BookDetailsForm>;
+  public detailedBook?: BookDetailedData;
+  public detailsForm!: FormGroup<DetailsFormInterface>;
   protected readonly detailsStrings: any;
   private dialogRef!: DialogOverlayRef<DetailsDialogComponent, boolean>;
   public infoMsg?: string;
@@ -39,7 +40,7 @@ export class DetailsComponent implements OnInit {
     private route: ActivatedRoute,
     private readonly dialogService: DialogService,
     private dataService: DialogDataService,
-    private networkService: BookDetailsNetworkService,
+    private networkService: BookDetailsRepository,
   ) {
     this.detailsStrings = DetailsConstants;
   }
@@ -72,7 +73,7 @@ export class DetailsComponent implements OnInit {
   }
 
   private initForm(): void {
-    this.detailsForm = new FormGroup<BookDetailsForm>({
+    this.detailsForm = new FormGroup<DetailsFormInterface>({
       title: new FormControl<string>('', {
         nonNullable: true,
         validators: [Validators.required],
