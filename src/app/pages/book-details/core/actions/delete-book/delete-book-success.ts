@@ -5,7 +5,7 @@ import {
 } from '@grotem/grotem.box.angular.store';
 import { BookDetailsState } from '../../state';
 
-@Action('Delete Book')
+@Action('Delete Book Success')
 export class DeleteBookSuccess implements IAction<BookDetailsState> {
   public payload(state: BookDetailsState): Partial<BookDetailsState> {
     return {

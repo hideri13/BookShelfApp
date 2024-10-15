@@ -1,22 +1,22 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { BookDetailedData, BookModifiedResponse } from '../core/domain';
+import { BookDetailed, BookModifiedResponse } from '../core';
 import { BookApi } from '../../../../shared/global-env/book-api';
 
 @Injectable()
 export class BookDetailsRepository {
   constructor(private httpClient: HttpClient) {}
 
-  public getBookById(bookId: string): Observable<BookDetailedData> {
-    return this.httpClient.get<BookDetailedData>(
+  public getBookById(bookId: string): Observable<BookDetailed> {
+    return this.httpClient.get<BookDetailed>(
       `${BookApi.method}://${BookApi.address}:${BookApi.port}/books/${bookId}`,
     );
   }
 
   public postUpdateBook(
     bookId: string,
-    book: BookDetailedData,
+    book: BookDetailed,
   ): Observable<BookModifiedResponse> {
     return this.httpClient.post<BookModifiedResponse>(
       `${BookApi.method}://${BookApi.address}:${BookApi.port}/books/update/${bookId}`,
