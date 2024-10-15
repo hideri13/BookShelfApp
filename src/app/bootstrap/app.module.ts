@@ -2,11 +2,11 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { NavigationComponent } from './components/navigation/navigation.component';
-import { NotFoundComponent } from './components/not-found/not-found.component';
-import { FooterComponent } from './components/footer/footer.component';
-import { HeaderComponent } from './components/header/header.component';
+import { AppComponent } from '../ui/app.component';
+import { NavigationComponent } from '../ui/navigation';
+import { NotFoundComponent } from '../ui/not-found';
+import { FooterComponent } from '../ui/footer';
+import { HeaderComponent } from '../ui/header';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({

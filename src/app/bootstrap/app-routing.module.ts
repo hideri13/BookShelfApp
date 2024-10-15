@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { NotFoundComponent } from './components/not-found/not-found.component';
+import { NotFoundComponent } from '../ui/not-found';
 
 const routes: Routes = [
   {
@@ -11,14 +11,16 @@ const routes: Routes = [
   {
     path: 'list',
     loadChildren: () =>
-      import('./pages/books-list/bootstrap/books-list.module').then(
+      import('../pages/books-list/bootstrap/books-list.module').then(
         (m) => m.BooksListModule,
       ),
   },
   {
     path: 'about',
     loadChildren: () =>
-      import('./pages/about/bootstrap/about.module').then((m) => m.AboutModule),
+      import('../pages/about/bootstrap/about.module').then(
+        (m) => m.AboutModule,
+      ),
   },
   {
     path: '**',

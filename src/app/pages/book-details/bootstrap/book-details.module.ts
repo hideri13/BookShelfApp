@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { BookDetailsRoutingModule } from './book-details-routing.module';
-import { DetailsComponent } from '../ui/details';
+import { DetailsComponent } from '../ui';
 import {
   ButtonModule,
   DatePickerModule,
@@ -11,7 +11,7 @@ import {
   SelectModule,
   TextareaModule,
 } from '@grotem-ui/grotem-ui-lib';
-import { DetailsDialogComponent } from '../ui/dialog';
+import { DetailsDialogComponent } from '../ui/details/dialog';
 import { BookDetailsFacade, DialogDataService } from '../core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
