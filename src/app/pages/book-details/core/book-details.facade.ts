@@ -8,7 +8,7 @@ import { BookDetailsState } from './state';
 import { Subject, takeUntil } from 'rxjs';
 import { BookDetailsRepository } from '../data';
 import * as actions from './actions';
-import { BookDetailedData } from './domain';
+import { BookDetailed } from './domain';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable()
@@ -42,7 +42,7 @@ export class BookDetailsFacade implements OnDestroy {
       .getBookById(id)
       .pipe(takeUntil(this._destroy$))
       .subscribe({
-        next: (data: BookDetailedData): void => {
+        next: (data: BookDetailed): void => {
           this.store.dispatch(new actions.LoadBookDetailsSuccess(data));
         },
         error: (error: HttpErrorResponse): void => {
@@ -51,7 +51,7 @@ export class BookDetailsFacade implements OnDestroy {
       });
   }
 
-  public updateBookDetails(id: string, bookData: BookDetailedData): void {
+  public updateBookDetails(id: string, bookData: BookDetailed): void {
     this.store.dispatch(new actions.UpdateBookDetails());
     this.bookDetailsRepository
       .postUpdateBook(id, bookData)
