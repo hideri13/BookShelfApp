@@ -33,7 +33,7 @@ import {
   DialogTextConstants,
   GenreConstants,
 } from './details.constants';
-import { DetailsDialogComponent } from '../dialog';
+import { DetailsDialogComponent } from './dialog';
 import { Subject, take, takeUntil } from 'rxjs';
 import { DetailsFormInterface } from './details.form.interface';
 import { BookDetailsRepository } from '../../data';
