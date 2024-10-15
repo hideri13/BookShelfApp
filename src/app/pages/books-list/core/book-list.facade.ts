@@ -8,7 +8,7 @@ import {
 import * as actions from './actions';
 import { Subject, takeUntil } from 'rxjs';
 import { BookListRepository } from '../data';
-import { BookPagedData } from './domain';
+import { BookPaged } from './domain';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable()
@@ -43,7 +43,7 @@ export class BookListFacade implements OnDestroy {
       .getBooks(page, size)
       .pipe(takeUntil(this._destroy$))
       .subscribe({
-        next: (data: BookPagedData): void => {
+        next: (data: BookPaged): void => {
           this.store.dispatch(new actions.LoadBookListSuccess(data));
         },
         error: (error: HttpErrorResponse): void => {
