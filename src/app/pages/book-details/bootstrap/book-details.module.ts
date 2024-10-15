@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { BookDetailsRoutingModule } from './book-details-routing.module';
-import { DetailsComponent } from '../ui/details/details.component';
+import { DetailsComponent } from '../ui/details';
 import {
   ButtonModule,
   DatePickerModule,
@@ -11,11 +11,11 @@ import {
   SelectModule,
   TextareaModule,
 } from '@grotem-ui/grotem-ui-lib';
-import { DetailsDialogComponent } from '../ui/dialog/details-dialog.component';
-import { DialogDataService } from '../core/dialog-data.service';
+import { DetailsDialogComponent } from '../ui/dialog';
+import { BookDetailsFacade, DialogDataService } from '../core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { BookDetailsRepository } from '../data/book-details.repository';
+import { BookDetailsRepository } from '../data';
 
 @NgModule({
   declarations: [DetailsComponent, DetailsDialogComponent],
@@ -32,6 +32,6 @@ import { BookDetailsRepository } from '../data/book-details.repository';
     TextareaModule,
     HttpClientModule,
   ],
-  providers: [DialogDataService, BookDetailsRepository],
+  providers: [DialogDataService, BookDetailsRepository, BookDetailsFacade],
 })
 export class BookDetailsModule {}

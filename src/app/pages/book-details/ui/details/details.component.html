@@ -1,17 +1,8 @@
-<ng-container *ngIf="detailedBook; else loadingDetails">
+<ng-container *ngIf="loaded; else loadingDetails">
   <div class="book-details">
     <div class="back-button">
       <a [routerLink]="['..']">◀ Back</a>
     </div>
-    <!--  <div class="book-details__header">-->
-    <!--    <span>Title: {{ detailedBook.title }}</span>-->
-    <!--    <span>Author: {{ detailedBook.author }}</span>-->
-    <!--    <span>Genre: {{ detailedBook.genre }}</span>-->
-    <!--  </div>-->
-    <!--  <div class="book-details__body">-->
-    <!--    <span>Description:</span>-->
-    <!--    <div>{{ detailedBook.description }}</div>-->
-    <!--  </div>-->
     <form class="book-details__form" [formGroup]="detailsForm">
       <gui-input
         [label]="detailsStrings.title"
@@ -36,7 +27,6 @@
           *ngFor="let option of GenreConstants"
           [value]="option"
           [label]="option"
-          [disabled]="false"
         ></gui-option>
       </gui-select>
       <gui-date-picker
@@ -47,7 +37,6 @@
       <gui-textarea class="book-details__form__description"
                     [placeholder]="detailsStrings.description"
                     [fieldLabel]="detailsStrings.description"
-                    [disabled]="false"
                     [formControl]="detailsForm.controls.description"
       ></gui-textarea>
     </form>
@@ -73,5 +62,5 @@
 </ng-container>
 
 <ng-template #loadingDetails>
-  <span>Loading details for this Book!</span>
+  <span>{{ infoMsg }}</span>
 </ng-template>
