@@ -64,7 +64,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
     private readonly dialogService: DialogService,
     private dataService: DialogDataService,
     private networkService: BookDetailsRepository,
-    private readonly changeDectectionRef: ChangeDetectorRef,
+    private readonly changeDetectorRef: ChangeDetectorRef,
   ) {
     this.detailsStrings = DetailsConstants;
   }
@@ -106,7 +106,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
         this.applyDataToForm(state.bookDetailsState.value);
         this.loaded = true;
         console.log('Load Data Successful');
-        this.changeDectectionRef.detectChanges();
+        this.changeDetectorRef.detectChanges();
       });
   }
 
@@ -116,7 +116,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this._destroy$))
       .subscribe((): void => {
         this.infoMsg = 'Book Load Error';
-        this.changeDectectionRef.detectChanges();
+        this.changeDetectorRef.detectChanges();
       });
   }
 
