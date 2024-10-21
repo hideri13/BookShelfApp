@@ -35,7 +35,7 @@ export class ListComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     private readonly facade: BookListFacade,
-    private readonly changeDectectionRef: ChangeDetectorRef,
+    private readonly changeDetectorRef: ChangeDetectorRef,
   ) {}
 
   public ngOnInit() {
@@ -67,7 +67,7 @@ export class ListComponent implements OnInit, OnDestroy {
       .subscribe((state: BookListState): void => {
         this.books = state.bookListState.value.books;
         this.paginatorParams.totalLength = state.bookListState.value.totalCount;
-        this.changeDectectionRef.detectChanges();
+        this.changeDetectorRef.detectChanges();
       });
   }
 
@@ -79,7 +79,7 @@ export class ListComponent implements OnInit, OnDestroy {
         this.books = undefined;
         this.paginatorParams.totalLength = 0;
         this.infoMsg = `Load Error`;
-        this.changeDectectionRef.detectChanges();
+        this.changeDetectorRef.detectChanges();
       });
   }
 
