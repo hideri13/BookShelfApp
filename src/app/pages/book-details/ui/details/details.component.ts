@@ -53,6 +53,10 @@ export class DetailsComponent implements OnInit, OnDestroy {
   public loaded = false;
   public infoMsg: string = '';
 
+  protected readonly SelectEnumType = SelectEnumType;
+  protected readonly ButtonTypeConstants = ButtonTypeConstants;
+  protected readonly GenreConstants = GenreConstants;
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -237,8 +241,4 @@ export class DetailsComponent implements OnInit, OnDestroy {
       }
     });
   }
-
-  protected readonly SelectEnumType = SelectEnumType;
-  protected readonly ButtonTypeConstants = ButtonTypeConstants;
-  protected readonly GenreConstants = GenreConstants;
 }

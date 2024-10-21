@@ -5,17 +5,17 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import { BookSummary, PaginatorParams } from '../../core/domain';
-import { ActivatedRoute, Router } from '@angular/router';
-import { PageEvent } from '@grotem-ui/grotem-ui-lib';
-import { stockPaginatorOptions } from './list.constants';
 import {
   BookListFacade,
   BookListState,
-  LoadBookList,
+  BookSummary,
   LoadBookListFailure,
   LoadBookListSuccess,
+  PaginatorParams,
 } from '../../core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { PageEvent } from '@grotem-ui/grotem-ui-lib';
+import { stockPaginatorOptions } from './list.constants';
 import { Subject, takeUntil } from 'rxjs';
 
 @Component({
@@ -40,7 +40,6 @@ export class ListComponent implements OnInit, OnDestroy {
 
   public ngOnInit() {
     this.initPaginator();
-    //this.subscribeToBooksListLoad(); // Disabled for beautifying
     this.subscribeToBooksListSuccess();
     this.subscribeToBooksListFailure();
     this.loadBooks();
@@ -59,18 +58,6 @@ export class ListComponent implements OnInit, OnDestroy {
       totalLength: stockPaginatorOptions.totalLength,
       hidePageSize: stockPaginatorOptions.hidePageSize,
     };
-  }
-
-  // Causes stutter
-  private subscribeToBooksListLoad(): void {
-    this.facade.state$
-      .byActions([LoadBookList])
-      .pipe(takeUntil(this._destroy$))
-      .subscribe((): void => {
-        this.books = undefined;
-        this.infoMsg = 'Loading';
-        this.changeDectectionRef.detectChanges();
-      });
   }
 
   private subscribeToBooksListSuccess(): void {
@@ -118,5 +105,3 @@ export class ListComponent implements OnInit, OnDestroy {
     this.router.navigate([`${id}`], { relativeTo: this.route });
   }
 }
-
-//TODO: Patch for Facade
