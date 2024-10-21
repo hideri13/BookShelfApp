@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from '../ui/app.component';
+import { AppComponent } from '../ui';
 import { NavigationComponent } from '../ui/navigation';
 import { NotFoundComponent } from '../ui/not-found';
 import { FooterComponent } from '../ui/footer';
