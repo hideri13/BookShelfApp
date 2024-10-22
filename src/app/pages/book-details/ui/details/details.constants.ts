@@ -23,7 +23,3 @@ export const ButtonTypeConstants: { [key: string]: ButtonType } = {
   save: 'primary',
   delete: 'danger',
 };
-export const BookDetailedInfoMsg = {
-  loading: 'Loading book!',
-  error: 'Error occurred while fetching book. Please refresh the page.',
-};
