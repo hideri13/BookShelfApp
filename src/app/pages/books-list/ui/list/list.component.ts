@@ -51,7 +51,7 @@ export class ListComponent implements OnInit, OnDestroy {
   }
 
   private initPaginator(): void {
-    this.paginatorParams = {
+    this.paginatorParams = <PaginatorParams>{
       pageIndex: stockPaginatorOptions.pageIndex,
       pageSize: stockPaginatorOptions.pageSize,
       pageSizeOptions: stockPaginatorOptions.pageSizeOptions,
