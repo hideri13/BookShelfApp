@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { BookDetailed, BookModifiedResponse } from '../core';
-import { BookApi } from '../../../../shared/global-env/book-api';
+import { BookApi } from '../../../../shared';
 
 @Injectable()
 export class BookDetailsRepository {
