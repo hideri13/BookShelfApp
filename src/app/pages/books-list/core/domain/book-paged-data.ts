@@ -6,6 +6,6 @@ export class BookPaged {
 
   constructor(params?: Partial<BookPaged>) {
     this.totalCount = params?.totalCount ?? 0;
-    this.books = params?.books ?? new Array<IBookSummary>();
+    this.books = params?.books ?? [];
   }
 }

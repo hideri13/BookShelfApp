@@ -173,11 +173,13 @@ export class DetailsComponent implements OnInit, OnDestroy {
   }
 
   private applyDataToForm(book: BookDetailed): void {
-    this.detailsForm?.controls.title.setValue(book.title);
-    this.detailsForm?.controls.author.setValue(book.author);
-    this.detailsForm?.controls.genre.setValue(book.genre);
-    this.detailsForm?.controls.date.setValue(new Date(book.date));
-    this.detailsForm?.controls.description.setValue(book.description);
+    this.detailsForm?.setValue({
+      title: book.title,
+      author: book.author,
+      genre: book.genre,
+      date: new Date(book.date),
+      description: book.description,
+    });
   }
 
   private formsToBook(): BookDetailed {
