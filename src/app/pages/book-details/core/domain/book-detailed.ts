@@ -1,13 +1,4 @@
-export interface BookDetailedData {
-  id: string;
-  author: string;
-  title: string;
-  genre: string;
-  date: string;
-  description: string;
-}
-
-export class BookDetailed implements BookDetailedData {
+export class BookDetailed {
   public id: string = '';
   public author: string = '';
   public title: string = '';
@@ -15,7 +6,7 @@ export class BookDetailed implements BookDetailedData {
   public date: string = '';
   public description: string = '';
 
-  constructor(params?: Partial<BookDetailedData>) {
+  constructor(params?: Partial<BookDetailed>) {
     this.id = params?.id ?? '';
     this.author = params?.author ?? '';
     this.title = params?.title ?? '';

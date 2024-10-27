@@ -8,15 +8,16 @@ import {
 import {
   BookListFacade,
   BookListState,
-  BookSummary,
+  IBookSummary,
   LoadBookListFailure,
-  LoadBookListSuccess,
-  PaginatorParams,
+  LoadBookListSuccess
 } from '../../core';
+
 import { ActivatedRoute, Router } from '@angular/router';
 import { PageEvent } from '@grotem-ui/grotem-ui-lib';
 import { stockPaginatorOptions } from './list.constants';
 import { Subject, takeUntil } from 'rxjs';
+import { IPaginatorParams } from "./paginator-params.interface";
 
 @Component({
   selector: 'app-list',
@@ -27,8 +28,8 @@ import { Subject, takeUntil } from 'rxjs';
 export class ListComponent implements OnInit, OnDestroy {
   private _destroy$ = new Subject<void>();
 
-  public books?: BookSummary[];
-  public paginatorParams!: PaginatorParams;
+  public books?: IBookSummary[];
+  public paginatorParams!: IPaginatorParams;
   public infoMsg?: string;
 
   constructor(
@@ -51,7 +52,7 @@ export class ListComponent implements OnInit, OnDestroy {
   }
 
   private initPaginator(): void {
-    this.paginatorParams = <PaginatorParams>{
+    this.paginatorParams = <IPaginatorParams>{
       pageIndex: stockPaginatorOptions.pageIndex,
       pageSize: stockPaginatorOptions.pageSize,
       pageSizeOptions: stockPaginatorOptions.pageSizeOptions,

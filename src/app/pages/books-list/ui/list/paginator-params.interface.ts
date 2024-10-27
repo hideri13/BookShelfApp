@@ -1,4 +1,4 @@
-export interface PaginatorParams {
+export interface IPaginatorParams {
   pageSize: number;
   pageIndex: number;
   totalLength: number;
