@@ -183,7 +183,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
   }
 
   private formsToBook(): BookDetailed {
-    return new BookDetailed(<BookDetailed>{
+    return new BookDetailed({
       id: this._id,
       author: this.detailsForm?.controls.author.value,
       title: this.detailsForm?.controls.title.value,
