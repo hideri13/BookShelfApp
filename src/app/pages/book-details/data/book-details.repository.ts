@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { BookDetailed, BookModifiedResponse } from '../core';
+import { BookDetailed, IBookModifiedResponse } from '../core';
 import { BookApi } from '../../../../shared';
 
 @Injectable()
@@ -17,15 +17,15 @@ export class BookDetailsRepository {
   public postUpdateBook(
     bookId: string,
     book: BookDetailed,
-  ): Observable<BookModifiedResponse> {
-    return this.httpClient.post<BookModifiedResponse>(
+  ): Observable<IBookModifiedResponse> {
+    return this.httpClient.post<IBookModifiedResponse>(
       `${BookApi.method}://${BookApi.address}:${BookApi.port}/books/update/${bookId}`,
       book,
     );
   }
 
-  public postDeleteBook(bookId: string): Observable<BookModifiedResponse> {
-    return this.httpClient.post<BookModifiedResponse>(
+  public postDeleteBook(bookId: string): Observable<IBookModifiedResponse> {
+    return this.httpClient.post<IBookModifiedResponse>(
       `${BookApi.method}://${BookApi.address}:${BookApi.port}/books/delete/${bookId}`,
       {},
     );

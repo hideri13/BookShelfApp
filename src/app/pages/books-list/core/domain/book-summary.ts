@@ -1,4 +1,4 @@
-export interface BookSummary {
+export interface IBookSummary {
   id: number;
   author: string;
   title: string;

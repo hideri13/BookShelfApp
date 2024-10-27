@@ -7,7 +7,6 @@ import {
 } from '@angular/core';
 import {
   BookDetailed,
-  BookDetailedData,
   BookDetailsFacade,
   BookDetailsState,
   DeleteBookFailure,
@@ -35,7 +34,7 @@ import {
 } from './details.constants';
 import { DetailsDialogComponent } from './dialog';
 import { Subject, take, takeUntil } from 'rxjs';
-import { DetailsFormInterface } from './details.form.interface';
+import { IDetailsForm } from './details.form.interface';
 import { BookDetailsRepository } from '../../data';
 
 @Component({
@@ -47,7 +46,7 @@ import { BookDetailsRepository } from '../../data';
 export class DetailsComponent implements OnInit, OnDestroy {
   private _destroy$ = new Subject<void>();
   private _id?: string;
-  public detailsForm!: FormGroup<DetailsFormInterface>;
+  public detailsForm!: FormGroup<IDetailsForm>;
   protected readonly detailsStrings: any;
   private dialogRef!: DialogOverlayRef<DetailsDialogComponent, boolean>;
   public loaded = false;
@@ -158,7 +157,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
   }
 
   private initForm(): void {
-    this.detailsForm = new FormGroup<DetailsFormInterface>({
+    this.detailsForm = new FormGroup<IDetailsForm>({
       title: new FormControl<string>('', {
         nonNullable: true,
         validators: [Validators.required],
@@ -182,7 +181,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
   }
 
   private formsToBook(): BookDetailed {
-    return new BookDetailed(<BookDetailedData>{
+    return new BookDetailed(<BookDetailed>{
       id: this._id,
       author: this.detailsForm?.controls.author.value,
       title: this.detailsForm?.controls.title.value,

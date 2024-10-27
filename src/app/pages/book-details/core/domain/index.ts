@@ -1,2 +1,2 @@
-export { BookDetailedData, BookDetailed } from './book-detailed';
-export { BookModifiedResponse } from './book-modified-response';
+export { BookDetailed } from './book-detailed';
+export { IBookModifiedResponse } from './book-modified-response';

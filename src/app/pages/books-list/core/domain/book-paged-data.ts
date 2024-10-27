@@ -1,16 +1,11 @@
-import { BookSummary } from './book-summary';
+import { IBookSummary } from './book-summary';
 
-export interface BookPagedData {
-  totalCount: number;
-  books: BookSummary[];
-}
-
-export class BookPaged implements BookPagedData {
+export class BookPaged {
   public readonly totalCount: number = 0;
-  public readonly books: BookSummary[] = [];
+  public readonly books: IBookSummary[] = [];
 
-  constructor(params?: Partial<BookPagedData>) {
+  constructor(params?: Partial<BookPaged>) {
     this.totalCount = params?.totalCount ?? 0;
-    this.books = params?.books ?? new Array<BookSummary>();
+    this.books = params?.books ?? new Array<IBookSummary>();
   }
 }
