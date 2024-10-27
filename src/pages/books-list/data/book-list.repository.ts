@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { BookPaged } from '../core';
-import { BookApi } from '../../../../shared';
+import { BookApi } from '../../../shared';
 
 @Injectable()
 export class BookListRepository {

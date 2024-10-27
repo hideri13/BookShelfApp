@@ -11,14 +11,14 @@ const routes: Routes = [
   {
     path: 'list',
     loadChildren: () =>
-      import('../pages/books-list/bootstrap/books-list.module').then(
+      import('../../pages/books-list/bootstrap/books-list.module').then(
         (m) => m.BooksListModule,
       ),
   },
   {
     path: 'about',
     loadChildren: () =>
-      import('../pages/about/bootstrap/about.module').then(
+      import('../../pages/about/bootstrap/about.module').then(
         (m) => m.AboutModule,
       ),
   },
