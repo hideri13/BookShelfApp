@@ -7,6 +7,13 @@ const routes: Routes = [
     path: '',
     component: ListComponent,
   },
+  {
+    path: ':id',
+    loadChildren: () =>
+      import('../book-details/book-details.module').then(
+        (m) => m.BookDetailsModule,
+      ),
+  },
 ];
 
 @NgModule({

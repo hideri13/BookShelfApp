@@ -1,8 +1,7 @@
 .book-list {
   align-items: center;
-  margin: 0 auto 40px;
+  margin: 0 auto;
   padding-top: 20px;
-  padding-bottom: 20px;
   width: 70%;
   background-color: #ede5c8;
   border-collapse: collapse;
@@ -36,6 +35,4 @@
       transition: 0.3s all;
     }
   }
-
-
 }

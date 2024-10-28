@@ -4,7 +4,7 @@
     <th>Author</th>
     <th>Genre</th>
   </tr>
-  <tr class="book-list__item" *ngFor="let book of books">
+  <tr class="book-list__item" *ngFor="let book of books" (click)="openBook(book.id)">
     <td class="book-list__item__title">{{ book.title }}</td>
     <td>{{ book.author }}</td>
     <td>{{ book.genre }}</td>
