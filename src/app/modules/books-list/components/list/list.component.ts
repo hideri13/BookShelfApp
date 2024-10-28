@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+
 import { BookSummary } from '../../data-interfaces/bookSummary';
 import { sampleBooksData } from '../../../../../shared/sample-sata/sample-books-data';
 import { ActivatedRoute, Router } from '@angular/router';
