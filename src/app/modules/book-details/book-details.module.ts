@@ -3,15 +3,32 @@ import { CommonModule } from '@angular/common';
 
 import { BookDetailsRoutingModule } from './book-details-routing.module';
 import { DetailsComponent } from './components/details/details.component';
-
+import {
+  ButtonModule,
+  DatePickerModule,
+  DialogModule,
+  InputModule,
+  SelectModule,
+  TextareaModule,
+} from '@grotem-ui/grotem-ui-lib';
+import { DetailsDialogComponent } from './components/dialog/details-dialog.component';
+import { DialogDataService } from './services/dialog-data.service';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [
-    DetailsComponent
-  ],
+  declarations: [DetailsComponent, DetailsDialogComponent],
   imports: [
     CommonModule,
-    BookDetailsRoutingModule
-  ]
+    BookDetailsRoutingModule,
+    ButtonModule,
+    DialogModule,
+    ReactiveFormsModule,
+    InputModule,
+    SelectModule,
+    DatePickerModule,
+    FormsModule,
+    TextareaModule,
+  ],
+  providers: [DialogDataService],
 })
-export class BookDetailsModule { }
+export class BookDetailsModule {}

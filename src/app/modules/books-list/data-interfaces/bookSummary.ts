@@ -1,8 +1,7 @@
-export interface BookDetailed {
+export interface BookSummary {
   id: number;
   author: string;
   title: string;
   genre: string;
   date: string;
-  description: string;
 }
