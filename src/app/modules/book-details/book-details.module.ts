@@ -14,6 +14,8 @@ import {
 import { DetailsDialogComponent } from './components/dialog/details-dialog.component';
 import { DialogDataService } from './services/dialog-data.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { BookDetailsNetworkService } from './services/book-details-network.service';
 
 @NgModule({
   declarations: [DetailsComponent, DetailsDialogComponent],
@@ -28,7 +30,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     DatePickerModule,
     FormsModule,
     TextareaModule,
+    HttpClientModule,
   ],
-  providers: [DialogDataService],
+  providers: [DialogDataService, BookDetailsNetworkService],
 })
 export class BookDetailsModule {}
