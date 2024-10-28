@@ -6,6 +6,7 @@ import { PageEvent } from '@grotem-ui/grotem-ui-lib';
 import { PaginatorParams } from '../../data-interfaces/PaginatorParams';
 import { stockPaginatorOptions } from './list.constants';
 
+
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
@@ -14,6 +15,7 @@ import { stockPaginatorOptions } from './list.constants';
 export class ListComponent implements OnInit {
   public books?: Book[];
   public paginatorParams!: PaginatorParams;
+
 
   constructor(
     private router: Router,
