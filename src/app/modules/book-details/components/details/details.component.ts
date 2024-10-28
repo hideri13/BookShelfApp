@@ -181,7 +181,7 @@ export class DetailsComponent implements OnInit {
       }
     });
   }
-
+  
   protected readonly SelectEnumType = SelectEnumType;
   protected readonly ButtonTypeConstants = ButtonTypeConstants;
   protected readonly GenreConstants = GenreConstants;
