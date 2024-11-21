@@ -1,0 +1,66 @@
+<ng-container *ngIf="loaded; else loadingDetails">
+  <div class="book-details">
+    <div class="back-button">
+      <a [routerLink]="['..']">◀ Back</a>
+    </div>
+    <form class="book-details__form" [formGroup]="detailsForm">
+      <gui-input
+        [label]="detailsStrings.title"
+        [placeholder]="detailsStrings.title"
+        type="text"
+        formControlName="title"
+      ></gui-input>
+      <gui-input
+        [label]="detailsStrings.author"
+        [placeholder]="detailsStrings.author"
+        type="text"
+        formControlName="author"
+      ></gui-input>
+      <gui-select
+        [label]="detailsStrings.genre"
+        [placeholder]="detailsStrings.genre"
+        [allowClear]="true"
+        [selectType]="SelectEnumType.Single"
+        [formControl]="detailsForm.controls.genre"
+      >
+        <gui-option
+          *ngFor="let option of GenreConstants"
+          [value]="option"
+          [label]="option"
+        ></gui-option>
+      </gui-select>
+      <gui-date-picker
+        [label]="detailsStrings.date"
+        [required]="false"
+        formControlName="date"
+      ></gui-date-picker>
+      <gui-textarea class="book-details__form__description"
+                    [placeholder]="detailsStrings.description"
+                    [fieldLabel]="detailsStrings.description"
+                    [formControl]="detailsForm.controls.description"
+      ></gui-textarea>
+    </form>
+    <div class="control-buttons">
+      <button
+        gui-button
+        class="control-buttons__save"
+        [buttonType]="ButtonTypeConstants['save']"
+        (click)="onSave()"
+      >
+        Save
+      </button>
+      <button
+        gui-button
+        class="control-buttons__delete"
+        [buttonType]="ButtonTypeConstants['delete']"
+        (click)="onDelete()"
+      >
+        Delete
+      </button>
+    </div>
+  </div>
+</ng-container>
+
+<ng-template #loadingDetails>
+  <span>{{ infoMsg }}</span>
+</ng-template>
